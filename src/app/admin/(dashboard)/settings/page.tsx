@@ -14,6 +14,10 @@ export default function AdminSettingsPage() {
   const { toast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
 
+  // State for System Settings
+  const [appName, setAppName] = useState('TimeWise');
+  const [timeZone, setTimeZone] = useState('gmt-8');
+
   // State for switches
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [emailOnLate, setEmailOnLate] = useState(true);
@@ -53,11 +57,11 @@ export default function AdminSettingsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
                 <Label htmlFor="app-name">Application Name</Label>
-                <Input id="app-name" defaultValue="TimeWise" />
+                <Input id="app-name" value={appName} onChange={(e) => setAppName(e.target.value)} />
             </div>
              <div className="space-y-2">
                 <Label htmlFor="timezone">Global Time Zone</Label>
-                <Select>
+                <Select value={timeZone} onValueChange={setTimeZone}>
                   <SelectTrigger id="timezone">
                     <SelectValue placeholder="Select a timezone" />
                   </SelectTrigger>
