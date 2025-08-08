@@ -13,15 +13,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Label } from '@/components/ui/label';
 import { user } from '@/lib/data';
 import {
-  ModalHeader,
-  ModalDescription,
-  ModalContent,
-  ModalActions,
-  Button as SemanticButton,
-  Header,
-  Image,
-  Modal,
-} from 'semantic-ui-react'
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 function ProfileDetail({ label, value }: { label: string; value: string | undefined }) {
   return (
@@ -34,40 +36,35 @@ function ProfileDetail({ label, value }: { label: string; value: string | undefi
 
 
 function ChangePhotoModal() {
-  const [open, setOpen] = React.useState(false)
-
   return (
-    <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-      trigger={<SemanticButton className="w-full !bg-white !text-black !border-input !border hover:!bg-accent hover:!text-accent-foreground">Change Profile Photo</SemanticButton>}
-    >
-      <ModalHeader>Select a Photo</ModalHeader>
-      <ModalContent image>
-        <Image size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' wrapped />
-        <ModalDescription>
-          <Header>Default Profile Image</Header>
-          <p>
-            We've found the following gravatar image associated with your e-mail
-            address.
-          </p>
-          <p>Is it okay to use this photo?</p>
-        </ModalDescription>
-      </ModalContent>
-      <ModalActions>
-        <SemanticButton color='black' onClick={() => setOpen(false)}>
-          Nope
-        </SemanticButton>
-        <SemanticButton
-          content="Yep, that's me"
-          labelPosition='right'
-          icon='checkmark'
-          onClick={() => setOpen(false)}
-          positive
-        />
-      </ModalActions>
-    </Modal>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="w-full">Change Profile Photo</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Change Profile Photo</DialogTitle>
+          <DialogDescription>
+            Select a new photo to use for your profile.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+            <div className="flex items-center justify-center">
+                 <Avatar className="h-24 w-24">
+                    <AvatarImage src={`https://placehold.co/150x150.png`} alt={user.name} data-ai-hint="profile picture"/>
+                    <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+            </div>
+            <Input type="file" />
+        </div>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="ghost">Cancel</Button>
+          </DialogClose>
+          <Button>Save Changes</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -76,7 +73,9 @@ export function UserProfile() {
   const [formattedHireDate, setFormattedHireDate] = useState('');
 
   useEffect(() => {
-    setFormattedHireDate(new Date(user.hireDate).toLocaleDateString());
+    if(user.hireDate) {
+      setFormattedHireDate(new Date(user.hireDate).toLocaleDateString());
+    }
   }, []);
 
   return (
