@@ -1,47 +1,35 @@
 
-'use client'
+'use client';
 import { WelcomeHeader } from '@/components/dashboard/WelcomeHeader';
 import { ClockingActions } from '@/components/dashboard/ClockingActions';
 import { SmartNotification } from '@/components/dashboard/SmartNotification';
 import { DailySummary } from '@/components/dashboard/DailySummary';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { user } from '@/lib/data';
 import { generateSmartNotification } from '@/ai/flows/generate-smart-notification';
 import type { GenerateSmartNotificationOutput } from '@/ai/flows/generate-smart-notification';
+import { useEffect, useState } from 'react';
 
 export default function DashboardPage() {
-    const router = useRouter();
-    const [notification, setNotification] = useState<GenerateSmartNotificationOutput | null>(null);
-    const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState<GenerateSmartNotificationOutput | null>(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        // Mock authentication check
-        if (!user || user.isAdmin) {
-            router.push('/employee/login');
-        } else {
-            async function fetchNotification() {
-              try {
-                const result = await generateSmartNotification({
-                  userName: 'Alex',
-                  missedClockOut: true,
-                  unusualWorkPattern: false,
-                });
-                setNotification(result);
-              } catch (error) {
-                console.error('Failed to fetch smart notification:', error);
-                setNotification({ notificationMessage: 'Could not load smart suggestion at this time.' });
-              } finally {
-                setLoading(false);
-              }
-            }
-            fetchNotification();
-        }
-    }, [router]);
-
-    if (!user || user.isAdmin) {
-        return null;
+  useEffect(() => {
+    async function fetchNotification() {
+      try {
+        const result = await generateSmartNotification({
+          userName: 'Alex',
+          missedClockOut: true,
+          unusualWorkPattern: false,
+        });
+        setNotification(result);
+      } catch (error) {
+        console.error('Failed to fetch smart notification:', error);
+        setNotification({ notificationMessage: 'Could not load smart suggestion at this time.' });
+      } finally {
+        setLoading(false);
+      }
     }
+    fetchNotification();
+  }, []);
 
   return (
     <main className="flex-1 space-y-4 p-4 md:p-8 pt-6">
