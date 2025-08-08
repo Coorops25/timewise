@@ -3,6 +3,14 @@ import type { TimeLog } from './types';
 export const user = {
   name: 'Alex Doe',
   email: 'alex.doe@example.com',
+  employeeId: 'E12345',
+  jobTitle: 'Software Engineer',
+  department: 'Technology',
+  hireDate: '2022-08-15',
+  role: 'Employee',
+  phone: '555-123-4567',
+  address: '123 Tech Way, Silicon Valley, CA 94043',
+  shift: '9 AM - 5 PM PT'
 };
 
 export const dailySummary: TimeLog[] = [
