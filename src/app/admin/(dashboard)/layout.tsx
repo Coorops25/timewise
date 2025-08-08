@@ -45,12 +45,12 @@ export default function AdminLayout({
             <SidebarFooter>
               <div className="flex items-center gap-3 p-2">
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src={adminUser.avatar} alt={adminUser.name} data-ai-hint="profile picture" />
-                  <AvatarFallback>{adminUser.name.charAt(0)}</AvatarFallback>
+                  <AvatarImage src={'https://placehold.co/100x100.png'} alt={'Admin'} data-ai-hint="profile picture" />
+                  <AvatarFallback>A</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col overflow-hidden">
-                  <span className="font-semibold truncate">{adminUser.name}</span>
-                  <span className="text-xs text-muted-foreground truncate">{adminUser.email}</span>
+                  <span className="font-semibold truncate">Admin</span>
+                  <span className="text-xs text-muted-foreground truncate">admin@timewise.com</span>
                 </div>
               </div>
             </SidebarFooter>
