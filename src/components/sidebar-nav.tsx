@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 const links = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
   { href: '/profile', label: 'Profile', icon: User },
-  { href: '/admin', label: 'Admin', icon: Users },
+  { href: '/admin/dashboard', label: 'Admin', icon: Users },
 ];
 
 export function SidebarNav() {
