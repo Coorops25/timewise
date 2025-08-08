@@ -1,3 +1,4 @@
+
 import { generateSmartNotification } from '@/ai/flows/generate-smart-notification';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Lightbulb } from 'lucide-react';

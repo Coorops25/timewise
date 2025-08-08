@@ -1,3 +1,4 @@
+
 export type TimeLog = {
   id: string;
   userId: string;

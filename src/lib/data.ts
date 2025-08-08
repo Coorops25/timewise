@@ -1,3 +1,4 @@
+
 import type { TimeLog, User } from './types';
 
 export const user: User = {
