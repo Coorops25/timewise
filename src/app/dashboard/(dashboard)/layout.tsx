@@ -1,8 +1,6 @@
 
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarInset } from '@/components/ui/sidebar';
 import { Logo } from '@/components/icons';
 import { EmployeeSidebarNav } from '@/components/employee-sidebar-nav';
@@ -16,19 +14,6 @@ export default function AuthenticatedDashboardLayout({
 }: {
     children: React.ReactNode
 }) {
-    const router = useRouter();
-
-    useEffect(() => {
-        // Mock authentication check - redirect to login if not authenticated or is an admin
-        if (!user || user.isAdmin) {
-            router.push('/dashboard/login');
-        }
-    }, [router]);
-
-    if (!user || user.isAdmin) {
-        return null; // or a loading spinner
-    }
-
     return (
         <SidebarProvider>
           <Sidebar>

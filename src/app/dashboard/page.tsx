@@ -3,13 +3,18 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { user } from '@/lib/data';
 
 export default function DashboardRedirect() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push('/dashboard/login');
+    // If an authenticated user lands here, redirect to home.
+    // Otherwise, the layout will handle redirection to login.
+    if (user && !user.isAdmin) {
+        router.push('/dashboard/home');
+    }
   }, [router]);
 
-  return null;
+  return null; // or a loading spinner
 }
