@@ -4,15 +4,16 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { user } from '@/lib/data';
+import { users } from '@/lib/data';
 
 export default function AdminRedirect() {
   const router = useRouter();
 
   useEffect(() => {
+    const adminUser = users.find(u => u.isAdmin);
     // This is a mock authentication check.
     // In a real app, you'd check a token or session.
-    if (user && user.isAdmin) {
+    if (adminUser) {
         router.replace('/admin/dashboard');
     } else {
         router.replace('/admin/login');

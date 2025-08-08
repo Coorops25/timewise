@@ -5,7 +5,7 @@ import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
 import { Logo } from '@/components/icons';
 import { AdminSidebarNav } from '@/components/admin-sidebar-nav';
 import { Header } from '@/components/header';
-import { user } from '@/lib/data';
+import { users } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,8 @@ export default function AdminLayout({
     children: React.ReactNode
 }) {
     const router = useRouter();
-    const adminUser = user.isAdmin ? user : null;
+    // Correctly find the admin user from the list of all users.
+    const adminUser = users.find(u => u.isAdmin);
 
     useEffect(() => {
         // Mock authentication check
@@ -45,12 +46,12 @@ export default function AdminLayout({
             <SidebarFooter>
               <div className="flex items-center gap-3 p-2">
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src={'https://placehold.co/100x100.png'} alt={'Admin'} data-ai-hint="profile picture" />
-                  <AvatarFallback>A</AvatarFallback>
+                  <AvatarImage src={'https://placehold.co/100x100.png'} alt={adminUser.name} data-ai-hint="profile picture" />
+                  <AvatarFallback>{adminUser.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col overflow-hidden">
-                  <span className="font-semibold truncate">Admin</span>
-                  <span className="text-xs text-muted-foreground truncate">admin@timewise.com</span>
+                  <span className="font-semibold truncate">{adminUser.name}</span>
+                  <span className="text-xs text-muted-foreground truncate">{adminUser.email}</span>
                 </div>
               </div>
             </SidebarFooter>
