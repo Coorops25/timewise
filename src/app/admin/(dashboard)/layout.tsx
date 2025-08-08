@@ -17,19 +17,19 @@ export default function AdminLayout({
     children: React.ReactNode
 }) {
     const router = useRouter();
+    const adminUser = user.isAdmin ? user : null;
 
     useEffect(() => {
         // Mock authentication check
-        if (!user.isAdmin) {
+        if (!adminUser) {
             router.push('/admin');
         }
-    }, [router]);
+    }, [router, adminUser]);
 
-    if (!user.isAdmin) {
+    if (!adminUser) {
         return null; // or a loading spinner
     }
     
-    const adminUser = user;
     return (
         <SidebarProvider>
           <Sidebar>

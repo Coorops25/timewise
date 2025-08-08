@@ -16,7 +16,7 @@ export default function HomePage() {
             <Link href="/dashboard/login">Login</Link>
           </Button>
           <Button asChild>
-            <Link href="/admin">Admin Access</Link>
+            <Link href="/admin">Admin Login</Link>
           </Button>
         </nav>
       </header>

@@ -13,13 +13,13 @@ import { Logo } from '@/components/icons';
 export default function AdminLoginPage() {
     const router = useRouter();
     const { toast } = useToast();
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         // Mock authentication for admin
-        if (email === 'Admin123' && password === 'timewise123T!') {
+        if (username === 'Admin123' && password === 'timewise123T!') {
             toast({
                 title: 'Login Successful',
                 description: 'Redirecting to the admin dashboard.',
@@ -46,13 +46,13 @@ export default function AdminLoginPage() {
                 <CardContent>
                     <form onSubmit={handleLogin} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email">Username</Label>
+                            <Label htmlFor="username">Username</Label>
                             <Input
-                                id="email"
+                                id="username"
                                 type="text"
                                 placeholder="Admin123"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 required
                             />
                         </div>
