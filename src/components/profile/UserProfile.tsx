@@ -1,3 +1,6 @@
+'use client';
+
+import React from 'react'
 import {
   Card,
   CardContent,
@@ -7,11 +10,18 @@ import {
   CardFooter,
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 import { user } from '@/lib/data';
-import { Camera } from 'lucide-react';
+import {
+  ModalHeader,
+  ModalDescription,
+  ModalContent,
+  ModalActions,
+  Button as SemanticButton,
+  Header,
+  Image,
+  Modal,
+} from 'semantic-ui-react'
 
 function ProfileDetail({ label, value }: { label: string; value: string | undefined }) {
   return (
@@ -21,6 +31,46 @@ function ProfileDetail({ label, value }: { label: string; value: string | undefi
     </div>
   );
 }
+
+
+function ChangePhotoModal() {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <Modal
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={<SemanticButton className="w-full !bg-white !text-black !border-input !border hover:!bg-accent hover:!text-accent-foreground">Change Profile Photo</SemanticButton>}
+    >
+      <ModalHeader>Select a Photo</ModalHeader>
+      <ModalContent image>
+        <Image size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' wrapped />
+        <ModalDescription>
+          <Header>Default Profile Image</Header>
+          <p>
+            We've found the following gravatar image associated with your e-mail
+            address.
+          </p>
+          <p>Is it okay to use this photo?</p>
+        </ModalDescription>
+      </ModalContent>
+      <ModalActions>
+        <SemanticButton color='black' onClick={() => setOpen(false)}>
+          Nope
+        </SemanticButton>
+        <SemanticButton
+          content="Yep, that's me"
+          labelPosition='right'
+          icon='checkmark'
+          onClick={() => setOpen(false)}
+          positive
+        />
+      </ModalActions>
+    </Modal>
+  )
+}
+
 
 export function UserProfile() {
   return (
@@ -46,10 +96,7 @@ export function UserProfile() {
         <ProfileDetail label="Hire Date" value={new Date(user.hireDate).toLocaleDateString()} />
       </CardContent>
       <CardFooter>
-        <Button variant="outline" className="w-full">
-            <Camera className="mr-2 h-4 w-4"/>
-            Change Profile Photo
-        </Button>
+        <ChangePhotoModal />
       </CardFooter>
     </Card>
   );
