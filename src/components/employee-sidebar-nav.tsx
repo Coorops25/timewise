@@ -25,7 +25,7 @@ export function EmployeeSidebarNav() {
         <SidebarMenuItem key={link.href}>
           <SidebarMenuButton
             asChild
-            isActive={pathname.startsWith(link.href)}
+            isActive={pathname === link.href}
             className={cn(
               'group-data-[collapsible=icon]:justify-center'
             )}

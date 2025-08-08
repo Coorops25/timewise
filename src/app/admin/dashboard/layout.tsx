@@ -1,3 +1,5 @@
+'use client';
+
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarInset } from '@/components/ui/sidebar';
 import { Logo } from '@/components/icons';
 import { AdminSidebarNav } from '@/components/admin-sidebar-nav';
@@ -5,12 +7,27 @@ import { Header } from '@/components/header';
 import { user } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function AdminLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
+    const router = useRouter();
+
+    useEffect(() => {
+        // Mock authentication check
+        if (!user.isAdmin) {
+            router.push('/admin');
+        }
+    }, [router]);
+
+    if (!user.isAdmin) {
+        return null; // or a loading spinner
+    }
+    
     const adminUser = user;
     return (
         <SidebarProvider>
