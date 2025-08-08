@@ -18,18 +18,19 @@ export default function AdminLoginPage() {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        // Mock authentication
+        // Mock authentication for admin
         if (email === 'Admin123' && password === 'timewise123T!') {
             toast({
                 title: 'Login Successful',
                 description: 'Redirecting to the admin dashboard.',
             });
+            // In a real app, you would set an auth state/cookie here
             router.push('/admin/dashboard');
         } else {
             toast({
                 variant: 'destructive',
                 title: 'Login Failed',
-                description: 'Invalid email or password.',
+                description: 'Invalid username or password.',
             });
         }
     };
@@ -45,7 +46,7 @@ export default function AdminLoginPage() {
                 <CardContent>
                     <form onSubmit={handleLogin} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">Username</Label>
                             <Input
                                 id="email"
                                 type="text"

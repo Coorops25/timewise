@@ -19,12 +19,13 @@ export default function EmployeeLoginPage() {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        // Mock authentication
+        // Mock authentication for employee
         if (email === user.email && password === 'password123') {
             toast({
                 title: 'Login Successful',
                 description: 'Redirecting to your dashboard.',
             });
+             // In a real app, you would set an auth state/cookie here
             router.push('/dashboard/home');
         } else {
             toast({
