@@ -158,7 +158,7 @@ export function ClockingActions() {
               <div className="space-y-2">
                 <Label htmlFor="photo-upload">Upload Photo</Label>
                 <div className="flex items-center gap-2">
-                  <Input id="photo-upload" type="file" accept="image/*" onChange={handleFileChange} className="flex-1"/>
+                  <Input id="photo-upload" type="file" accept="image/png, image/jpeg" onChange={handleFileChange} className="flex-1"/>
                   <Button variant="outline" size="icon" onClick={() => document.getElementById('photo-upload')?.click()}><Upload className="h-4 w-4"/></Button>
                 </div>
               </div>
@@ -186,6 +186,8 @@ export function ClockingActions() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="work">Work</SelectItem>
+                    <SelectItem value="break">Break</SelectItem>
+                    <SelectItem value="lunch">Lunch</SelectItem>
                     <SelectItem value="meeting">Meeting</SelectItem>
                     <SelectItem value="fieldwork">Fieldwork</SelectItem>
                     <SelectItem value="training">Training</SelectItem>

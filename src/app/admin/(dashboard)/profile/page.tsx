@@ -83,7 +83,7 @@ function ChangePhotoModal({ onPhotoChange }: { onPhotoChange: (url: string) => v
                       <AvatarFallback>A</AvatarFallback>
                   </Avatar>
               </div>
-              <Input type="file" accept="image/*" onChange={handleFileChange} />
+              <Input type="file" accept="image/png, image/jpeg" onChange={handleFileChange} />
           </div>
           <DialogFooter>
             <DialogClose asChild>
