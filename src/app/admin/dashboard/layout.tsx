@@ -1,6 +1,6 @@
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarInset } from '@/components/ui/sidebar';
 import { Logo } from '@/components/icons';
-import { SidebarNav } from '@/components/sidebar-nav';
+import { AdminSidebarNav } from '@/components/admin-sidebar-nav';
 import { Header } from '@/components/header';
 import { user } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -22,7 +22,7 @@ export default function AdminLayout({
               </Link>
             </SidebarHeader>
             <SidebarContent>
-              <SidebarNav />
+              <AdminSidebarNav />
             </SidebarContent>
             <SidebarFooter>
               <div className="flex items-center gap-3 p-2">

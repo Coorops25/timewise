@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, User, Users } from 'lucide-react';
+import { LayoutDashboard, Users } from 'lucide-react';
 
 import {
   SidebarMenu,
@@ -12,12 +12,10 @@ import {
 import { cn } from '@/lib/utils';
 
 const links = [
-  { href: '/dashboard', label: 'Dashboard', icon: Home },
-  { href: '/profile', label: 'Profile', icon: User },
-  { href: '/admin/dashboard', label: 'Admin', icon: Users },
+  { href: '/admin/dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
 ];
 
-export function SidebarNav() {
+export function AdminSidebarNav() {
   const pathname = usePathname();
 
   return (

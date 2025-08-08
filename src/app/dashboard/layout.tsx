@@ -1,6 +1,6 @@
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarInset } from '@/components/ui/sidebar';
 import { Logo } from '@/components/icons';
-import { SidebarNav } from '@/components/sidebar-nav';
+import { EmployeeSidebarNav } from '@/components/employee-sidebar-nav';
 import { Header } from '@/components/header';
 import { user } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -21,7 +21,7 @@ export default function DashboardLayout({
               </Link>
             </SidebarHeader>
             <SidebarContent>
-              <SidebarNav />
+              <EmployeeSidebarNav />
             </SidebarContent>
             <SidebarFooter>
               <div className="flex items-center gap-3 p-2">
