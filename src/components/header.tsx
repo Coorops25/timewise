@@ -1,4 +1,6 @@
 
+'use client';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,9 +13,17 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { user } from '@/lib/data';
 
 export function Header() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // In a real app, you would also clear the authentication token here.
+    router.push('/');
+  };
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <div className="md:hidden">
@@ -35,7 +45,7 @@ export function Header() {
             <DropdownMenuItem asChild>
               <Link href="/employee/profile">Profile</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
