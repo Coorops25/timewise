@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react'
@@ -146,6 +147,7 @@ export function UserProfile() {
 
   useEffect(() => {
     if(currentUser.hireDate) {
+      // Safely format the date on the client side to avoid hydration errors
       setFormattedHireDate(new Date(currentUser.hireDate).toLocaleDateString());
     }
   }, [currentUser.hireDate]);
