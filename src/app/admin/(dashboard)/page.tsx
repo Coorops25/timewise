@@ -1,14 +1,23 @@
-import { UserManagement } from '@/components/admin/UserManagement';
-import { AttendanceView } from '@/components/admin/AttendanceView';
 
-export default function AdminDashboardPage() {
-  return (
-    <main className="flex-1 space-y-6 p-4 md:p-8 pt-6">
-      <h2 className="text-3xl font-bold tracking-tight">Admin Dashboard</h2>
-      <div className="space-y-8">
-        <UserManagement />
-        <AttendanceView />
-      </div>
-    </main>
-  );
+
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { user } from '@/lib/data';
+
+export default function AdminRedirect() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // This is a mock authentication check.
+    // In a real app, you'd check a token or session.
+    if (user && user.isAdmin) {
+        router.replace('/admin/dashboard');
+    } else {
+        router.replace('/admin/login');
+    }
+  }, [router]);
+
+  return null; // or a loading spinner
 }
