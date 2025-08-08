@@ -22,7 +22,7 @@ export default function AdminLayout({
     useEffect(() => {
         // Mock authentication check
         if (!adminUser) {
-            router.push('/admin');
+            router.push('/admin/login');
         }
     }, [router, adminUser]);
 
