@@ -4,6 +4,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Label } from '@/components/ui/label';
@@ -11,6 +12,16 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+    DialogClose,
+  } from '@/components/ui/dialog';
 
 
 const profileFormSchema = z.object({
@@ -26,9 +37,70 @@ const passwordFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 type PasswordFormValues = z.infer<typeof passwordFormSchema>;
 
+function ChangePhotoModal({ onPhotoChange }: { onPhotoChange: (url: string) => void }) {
+    const { toast } = useToast();
+    const [preview, setPreview] = useState<string | null>(null);
+    const [file, setFile] = useState<File | null>(null);
+  
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files[0]) {
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setPreview(event.target?.result as string);
+        };
+        reader.readAsDataURL(selectedFile);
+      }
+    };
+  
+    const handleSave = () => {
+       if(preview) {
+         onPhotoChange(preview);
+         toast({
+            title: "Photo Updated",
+            description: "Your new profile photo has been saved.",
+        });
+       }
+    }
+  
+    return (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline" className="w-full">Change Profile Photo</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Change Profile Photo</DialogTitle>
+            <DialogDescription>
+              Select a new photo to use for your profile.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+              <div className="flex items-center justify-center">
+                   <Avatar className="h-24 w-24">
+                      <AvatarImage src={preview ?? `https://placehold.co/150x150.png`} alt={'Admin'} data-ai-hint="profile picture"/>
+                      <AvatarFallback>A</AvatarFallback>
+                  </Avatar>
+              </div>
+              <Input type="file" accept="image/*" onChange={handleFileChange} />
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="ghost">Cancel</Button>
+            </DialogClose>
+            <DialogClose asChild>
+              <Button onClick={handleSave}>Save Changes</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    )
+}
 
 export default function AdminProfilePage() {
     const { toast } = useToast();
+    const [avatarUrl, setAvatarUrl] = useState(`https://placehold.co/100x100.png`);
 
     const profileForm = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
@@ -73,7 +145,7 @@ export default function AdminProfilePage() {
                 <CardHeader>
                     <div className="flex items-center gap-4">
                         <Avatar className="h-20 w-20">
-                            <AvatarImage src={`https://placehold.co/100x100.png`} alt={'Admin'} data-ai-hint="profile picture"/>
+                            <AvatarImage src={avatarUrl} alt={'Admin'} data-ai-hint="profile picture"/>
                             <AvatarFallback>A</AvatarFallback>
                         </Avatar>
                         <div className="grid gap-1">
@@ -90,6 +162,9 @@ export default function AdminProfilePage() {
                         </div>
                     </div>
                 </CardContent>
+                <CardFooter>
+                    <ChangePhotoModal onPhotoChange={setAvatarUrl} />
+                </CardFooter>
             </Card>
         </div>
 
