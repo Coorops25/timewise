@@ -1,17 +1,17 @@
 
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarInset } from '@/components/ui/sidebar';
 import { Logo } from '@/components/icons';
-import { AdminSidebarNav } from '@/components/admin-sidebar-nav';
+import { EmployeeSidebarNav } from '@/components/employee-sidebar-nav';
 import { Header } from '@/components/header';
 import { user } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
-export default function AdminLayout({
+export default function AuthenticatedDashboardLayout({
     children,
 }: {
     children: React.ReactNode
@@ -19,38 +19,37 @@ export default function AdminLayout({
     const router = useRouter();
 
     useEffect(() => {
-        // Mock authentication check
-        if (!user.isAdmin) {
-            router.push('/admin');
+        // Mock authentication check - redirect to login if not authenticated or is an admin
+        if (!user || user.isAdmin) {
+            router.push('/dashboard/login');
         }
     }, [router]);
 
-    if (!user.isAdmin) {
+    if (!user || user.isAdmin) {
         return null; // or a loading spinner
     }
-    
-    const adminUser = user;
+
     return (
         <SidebarProvider>
           <Sidebar>
             <SidebarHeader>
-              <Link href="/" className="flex items-center gap-2 p-2">
+               <Link href="/" className="flex items-center gap-2 p-2">
                 <Logo className="h-8 w-8 text-primary" />
                 <span className="text-lg font-semibold">TimeWise</span>
               </Link>
             </SidebarHeader>
             <SidebarContent>
-              <AdminSidebarNav />
+              <EmployeeSidebarNav />
             </SidebarContent>
             <SidebarFooter>
               <div className="flex items-center gap-3 p-2">
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src={adminUser.avatar} alt={adminUser.name} data-ai-hint="profile picture" />
-                  <AvatarFallback>{adminUser.name.charAt(0)}</AvatarFallback>
+                  <AvatarImage src={`https://placehold.co/100x100.png`} alt={user.name} data-ai-hint="profile picture" />
+                  <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col overflow-hidden">
-                  <span className="font-semibold truncate">{adminUser.name}</span>
-                  <span className="text-xs text-muted-foreground truncate">{adminUser.email}</span>
+                  <span className="font-semibold truncate">{user.name}</span>
+                  <span className="text-xs text-muted-foreground truncate">{user.email}</span>
                 </div>
               </div>
             </SidebarFooter>
