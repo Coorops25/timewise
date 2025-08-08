@@ -1,7 +1,7 @@
 
 'use client';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { BarChart3, Users, Settings, Activity } from 'lucide-react';
+import { BarChart3, Users, Settings, Activity, UserCircle } from 'lucide-react';
 import Link from 'next/link';
 
 const adminFeatures = [
@@ -24,6 +24,12 @@ const adminFeatures = [
         icon: BarChart3,
     },
     {
+        title: 'Admin Profile',
+        description: 'View and manage your admin profile.',
+        href: '/admin/profile',
+        icon: UserCircle,
+    },
+    {
         title: 'System Settings',
         description: 'Configure application settings.',
         href: '/admin/settings',
@@ -37,7 +43,7 @@ export default function AdminDashboardPage() {
       <h2 className="text-3xl font-bold tracking-tight">Admin Dashboard</h2>
       <p className="text-muted-foreground">Welcome, Admin. Here's a quick overview of your workspace.</p>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {adminFeatures.map((feature) => (
             <Link href={feature.href} key={feature.title}>
                 <Card className="hover:bg-muted/50 transition-colors">
