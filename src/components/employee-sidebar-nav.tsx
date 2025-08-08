@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -12,7 +13,7 @@ import {
 import { cn } from '@/lib/utils';
 
 const links = [
-  { href: '/dashboard', label: 'Dashboard', icon: Home },
+  { href: '/dashboard/home', label: 'Dashboard', icon: Home },
   { href: '/profile', label: 'Profile', icon: User },
 ];
 
