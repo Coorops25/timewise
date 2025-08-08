@@ -4,6 +4,7 @@ import { SidebarNav } from '@/components/sidebar-nav';
 import { Header } from '@/components/header';
 import { user } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Link from 'next/link';
 
 export default function AdminLayout({
     children,
@@ -14,10 +15,10 @@ export default function AdminLayout({
         <SidebarProvider>
           <Sidebar>
             <SidebarHeader>
-              <div className="flex items-center gap-2 p-2">
+              <Link href="/" className="flex items-center gap-2 p-2">
                 <Logo className="h-8 w-8 text-primary" />
                 <span className="text-lg font-semibold">TimeWise</span>
-              </div>
+              </Link>
             </SidebarHeader>
             <SidebarContent>
               <SidebarNav />

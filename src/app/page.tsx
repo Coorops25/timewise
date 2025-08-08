@@ -16,7 +16,7 @@ export default function HomePage() {
             <Link href="/dashboard">Login</Link>
           </Button>
           <Button asChild>
-            <Link href="/dashboard">Admin Access</Link>
+            <Link href="/admin">Admin Access</Link>
           </Button>
         </nav>
       </header>
@@ -33,7 +33,7 @@ export default function HomePage() {
                 <Link href="/dashboard">Employee Login</Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-                 <Link href="/dashboard">Admin Dashboard</Link>
+                 <Link href="/admin">Admin Login</Link>
             </Button>
           </div>
         </div>
