@@ -5,16 +5,37 @@ import { ClockingActions } from '@/components/dashboard/ClockingActions';
 import { SmartNotification } from '@/components/dashboard/SmartNotification';
 import { DailySummary } from '@/components/dashboard/DailySummary';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { user } from '@/lib/data';
+import { generateSmartNotification } from '@/ai/flows/generate-smart-notification';
+import type { GenerateSmartNotificationOutput } from '@/ai/flows/generate-smart-notification';
 
 export default function DashboardPage() {
     const router = useRouter();
+    const [notification, setNotification] = useState<GenerateSmartNotificationOutput | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Mock authentication check
         if (!user || user.isAdmin) {
             router.push('/employee/login');
+        } else {
+            async function fetchNotification() {
+              try {
+                const result = await generateSmartNotification({
+                  userName: 'Alex',
+                  missedClockOut: true,
+                  unusualWorkPattern: false,
+                });
+                setNotification(result);
+              } catch (error) {
+                console.error('Failed to fetch smart notification:', error);
+                setNotification({ notificationMessage: 'Could not load smart suggestion at this time.' });
+              } finally {
+                setLoading(false);
+              }
+            }
+            fetchNotification();
         }
     }, [router]);
 
@@ -28,7 +49,7 @@ export default function DashboardPage() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
           <ClockingActions />
-          <SmartNotification />
+          <SmartNotification notification={notification} loading={loading} />
         </div>
         <div className="lg:col-span-1">
           <DailySummary />
