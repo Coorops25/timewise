@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, User } from 'lucide-react';
+import { Home, User, Users } from 'lucide-react';
 
 import {
   SidebarMenu,
@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 const links = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
   { href: '/profile', label: 'Profile', icon: User },
+  { href: '/admin', label: 'Admin', icon: Users },
 ];
 
 export function SidebarNav() {
@@ -25,7 +26,7 @@ export function SidebarNav() {
         <SidebarMenuItem key={link.href}>
           <SidebarMenuButton
             asChild
-            isActive={pathname === link.href}
+            isActive={pathname.startsWith(link.href)}
             className={cn(
               'group-data-[collapsible=icon]:justify-center'
             )}
