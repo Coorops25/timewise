@@ -16,7 +16,7 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
     } else {
       // If the user is authenticated and tries to access the root employee URL,
       // redirect them to their home page.
-      if (window.location.pathname === '/employee') {
+      if (typeof window !== 'undefined' && window.location.pathname === '/employee') {
          router.replace('/employee/home');
       }
     }
