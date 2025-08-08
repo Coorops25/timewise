@@ -13,7 +13,7 @@ export default function HomePage() {
         </div>
         <nav>
           <Button variant="ghost" asChild>
-            <Link href="/dashboard/login">Login</Link>
+            <Link href="/employee/login">Login</Link>
           </Button>
           <Button asChild>
             <Link href="/admin/login">Admin Login</Link>
@@ -30,7 +30,7 @@ export default function HomePage() {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" asChild>
-                <Link href="/dashboard/login">Employee Login</Link>
+                <Link href="/employee/login">Employee Login</Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
                  <Link href="/admin/login">Admin Login</Link>

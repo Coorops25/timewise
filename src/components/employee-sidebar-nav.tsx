@@ -13,8 +13,8 @@ import {
 import { cn } from '@/lib/utils';
 
 const links = [
-  { href: '/dashboard/home', label: 'Dashboard', icon: Home },
-  { href: '/dashboard/profile', label: 'Profile', icon: User },
+  { href: '/employee/home', label: 'Dashboard', icon: Home },
+  { href: '/employee/profile', label: 'Profile', icon: User },
 ];
 
 export function EmployeeSidebarNav() {
