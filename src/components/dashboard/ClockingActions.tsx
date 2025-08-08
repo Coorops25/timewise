@@ -10,6 +10,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, Clock, Camera, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -28,11 +35,20 @@ export function ClockingActions() {
   const [confirmedTime, setConfirmedTime] = useState('');
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [photo, setPhoto] = useState<string | null>(null);
-  const [reason, setReason] = useState('');
+  const [isLate, setIsLate] = useState(false); // Mock state for lateness
   const videoRef = useRef<HTMLVideoElement>(null);
   const { toast } = useToast();
 
-  const handleOpenPrompt = () => setState('prompt');
+  const handleOpenPrompt = () => {
+    // In a real app, you'd check the current time against the user's shift start time.
+    // Here, we'll just simulate it for demonstration purposes.
+    const now = new Date();
+    const shiftStartTime = new Date();
+    shiftStartTime.setHours(9, 0, 0, 0); // Mock shift start at 9:00 AM
+    setIsLate(now > shiftStartTime);
+
+    setState('prompt');
+  };
 
   const handleClockAction = (type: ClockingType) => {
     setClockingType(type);
@@ -86,7 +102,6 @@ export function ClockingActions() {
     setState('idle');
     setProgress(0);
     setPhoto(null);
-    setReason('');
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,7 +149,7 @@ export function ClockingActions() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>What would you like to do?</DialogTitle>
-            <DialogDescription>Select an action, attach a photo, and provide a reason if necessary.</DialogDescription>
+            <DialogDescription>Select an action, attach a photo, and provide details if necessary.</DialogDescription>
           </DialogHeader>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
             <div className="space-y-4">
@@ -161,14 +176,36 @@ export function ClockingActions() {
               {photo && <img src={photo} alt="Verification" className="rounded-md mt-2 w-full"/>}
             </div>
             <div className="space-y-4">
-               <h3 className="font-semibold text-lg">2. Action & Reason</h3>
+               <h3 className="font-semibold text-lg">2. Action & Details</h3>
+               <div className="space-y-2">
+                <Label>Activity Type</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an activity..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="work">Work</SelectItem>
+                    <SelectItem value="meeting">Meeting</SelectItem>
+                    <SelectItem value="fieldwork">Fieldwork</SelectItem>
+                    <SelectItem value="training">Training</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+               </div>
+               {isLate && (
+                 <div className="space-y-2">
+                  <Label htmlFor="lateness-reason">Reason for Lateness</Label>
+                  <Textarea 
+                    id="lateness-reason"
+                    placeholder="e.g. Heavy traffic on the highway"
+                  />
+                 </div>
+               )}
               <div className="space-y-2">
-                <Label htmlFor="reason">Reason (if late)</Label>
+                <Label htmlFor="notes">Notes</Label>
                 <Textarea 
-                  id="reason"
-                  placeholder="e.g. Doctor's appointment"
-                  value={reason}
-                  onChange={(e) => setReason(e.target.value)}
+                  id="notes"
+                  placeholder="Optional notes for this time entry..."
                 />
               </div>
                <div className="grid grid-cols-2 gap-4 pt-4">
@@ -213,5 +250,3 @@ export function ClockingActions() {
     </>
   );
 }
-
-    
