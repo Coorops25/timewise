@@ -25,7 +25,7 @@ export default function AdminLoginPage() {
                 description: 'Redirecting to the admin dashboard.',
             });
             // In a real app, you would set an auth state/cookie here
-            router.push('/admin');
+            router.push('/admin/dashboard');
         } else {
             toast({
                 variant: 'destructive',
