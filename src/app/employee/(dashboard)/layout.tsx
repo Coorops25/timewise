@@ -55,7 +55,7 @@ export default function EmployeeDashboardLayout({
             </SidebarFooter>
           </Sidebar>
           <SidebarInset>
-            <Header />
+            <Header user={user} profilePath="/employee/profile" />
             {children}
           </SidebarInset>
         </SidebarProvider>

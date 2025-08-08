@@ -18,7 +18,7 @@ export default function AdminLayout({
 }) {
     const router = useRouter();
     // Correctly find the admin user from the list of all users.
-    const adminUser = users.find(u => u.isAdmin);
+    const adminUser = users.find(u => u.role === 'Admin');
 
     useEffect(() => {
         // Mock authentication check
@@ -57,7 +57,7 @@ export default function AdminLayout({
             </SidebarFooter>
           </Sidebar>
           <SidebarInset>
-            <Header />
+            <Header user={adminUser} profilePath="/admin/profile" />
             {children}
           </SidebarInset>
         </SidebarProvider>

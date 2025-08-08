@@ -14,9 +14,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { user } from '@/lib/data';
+import type { User } from '@/lib/types';
 
-export function Header() {
+interface HeaderProps {
+    user: User;
+    profilePath: string;
+}
+
+export function Header({ user, profilePath }: HeaderProps) {
   const router = useRouter();
 
   const handleLogout = () => {
@@ -43,7 +48,7 @@ export function Header() {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/employee/profile">Profile</Link>
+              <Link href={profilePath}>Profile</Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
