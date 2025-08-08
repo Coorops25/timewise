@@ -20,4 +20,5 @@ export type User = {
   address: string;
   shift: string;
   avatar: string;
+  isAdmin?: boolean;
 };

@@ -12,24 +12,26 @@ export const user: User = {
   phone: '555-123-4567',
   address: '123 Tech Way, Silicon Valley, CA 94043',
   shift: '9 AM - 5 PM PT',
-  avatar: `https://placehold.co/100x100.png`
+  avatar: `https://placehold.co/100x100.png`,
+  isAdmin: false,
 };
 
 export const users: User[] = [
   user,
   {
     id: '2',
-    name: 'Samantha Smith',
-    email: 'samantha.smith@example.com',
-    employeeId: 'E67890',
-    jobTitle: 'Project Manager',
+    name: 'Admin123',
+    email: 'admin@timewise.com',
+    employeeId: 'A00001',
+    jobTitle: 'System Administrator',
     department: 'Management',
-    hireDate: '2021-02-20',
+    hireDate: '2021-01-01',
     role: 'Admin',
-    phone: '555-987-6543',
-    address: '456 Innovation Dr, Tech City, CA 94043',
+    phone: '555-000-0001',
+    address: '1 Administrative Ave, Tech City, CA 94043',
     shift: '9 AM - 5 PM PT',
-    avatar: `https://placehold.co/100x100.png`
+    avatar: `https://placehold.co/100x100.png`,
+    isAdmin: true,
   },
   {
     id: '3',
@@ -43,7 +45,8 @@ export const users: User[] = [
     phone: '555-246-8135',
     address: '789 Creative Blvd, Designville, CA 94043',
     shift: '10 AM - 6 PM PT',
-    avatar: `https://placehold.co/100x100.png`
+    avatar: `https://placehold.co/100x100.png`,
+    isAdmin: false,
   }
 ];
 
