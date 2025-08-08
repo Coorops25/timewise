@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -12,7 +13,7 @@ import {
 import { cn } from '@/lib/utils';
 
 const links = [
-  { href: '/admin/dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
+  { href: '/admin', label: 'Admin Dashboard', icon: LayoutDashboard },
 ];
 
 export function AdminSidebarNav() {

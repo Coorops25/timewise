@@ -1,32 +1,21 @@
 
 'use client';
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { user } from '@/lib/data';
 
+export default function DashboardRedirect() {
+  const router = useRouter();
 
-export default function DashboardLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
-    const router = useRouter();
-
-    useEffect(() => {
-        // Mock authentication check
-        if (user.isAdmin) {
-            router.push('/admin');
-        }
-    }, [router]);
-
-    if (user.isAdmin) {
-        return null; // or a loading spinner
+  useEffect(() => {
+    // Redirect to login if not authenticated or is an admin
+    if (!user || user.isAdmin) {
+        router.push('/dashboard/login');
+    } else {
+        router.push('/dashboard/home');
     }
+  }, [router]);
 
-    return (
-       <>
-        {children}
-       </>
-    )
+  return null;
 }
