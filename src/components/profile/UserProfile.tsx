@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Card,
   CardContent,
@@ -73,6 +73,12 @@ function ChangePhotoModal() {
 
 
 export function UserProfile() {
+  const [formattedHireDate, setFormattedHireDate] = useState('');
+
+  useEffect(() => {
+    setFormattedHireDate(new Date(user.hireDate).toLocaleDateString());
+  }, []);
+
   return (
     <Card>
       <CardHeader>
@@ -93,7 +99,7 @@ export function UserProfile() {
         <ProfileDetail label="Email" value={user.email} />
         <ProfileDetail label="Phone" value={user.phone} />
         <ProfileDetail label="Shift" value={user.shift} />
-        <ProfileDetail label="Hire Date" value={new Date(user.hireDate).toLocaleDateString()} />
+        <ProfileDetail label="Hire Date" value={formattedHireDate} />
       </CardContent>
       <CardFooter>
         <ChangePhotoModal />
