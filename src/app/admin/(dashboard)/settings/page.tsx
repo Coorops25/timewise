@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,6 +11,14 @@ import { useToast } from '@/hooks/use-toast';
 
 export default function AdminSettingsPage() {
   const { toast } = useToast();
+  const [isMounted, setIsMounted] = useState(false);
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+  const [emailOnLate, setEmailOnLate] = useState(true);
+  const [slackOnPto, setSlackOnPto] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSaveChanges = (feature: string) => {
     toast({
@@ -17,6 +26,10 @@ export default function AdminSettingsPage() {
       description: `${feature} settings have been updated successfully.`,
     });
   };
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <main className="flex-1 space-y-6 p-4 md:p-8 pt-6">
@@ -40,7 +53,7 @@ export default function AdminSettingsPage() {
                   Require a second verification step for all users.
                 </p>
               </div>
-              <Switch id="2fa-switch" />
+              <Switch id="2fa-switch" checked={twoFactorEnabled} onCheckedChange={setTwoFactorEnabled} />
             </div>
              <div className="space-y-2">
                 <Label htmlFor="session-timeout">Session Timeout (minutes)</Label>
@@ -68,7 +81,7 @@ export default function AdminSettingsPage() {
                   Send an email to managers for tardiness alerts.
                 </p>
               </div>
-              <Switch id="email-late-switch" defaultChecked />
+              <Switch id="email-late-switch" checked={emailOnLate} onCheckedChange={setEmailOnLate} />
             </div>
              <div className="flex items-center justify-between space-x-4 rounded-md border p-4">
               <div className="flex-1 space-y-1">
@@ -79,7 +92,7 @@ export default function AdminSettingsPage() {
                   Post new time-off requests to a Slack channel.
                 </p>
               </div>
-              <Switch id="slack-pto-switch" />
+              <Switch id="slack-pto-switch" checked={slackOnPto} onCheckedChange={setSlackOnPto} />
             </div>
           </CardContent>
            <CardFooter>
