@@ -235,9 +235,11 @@ export function ClockingActions() {
 
       <Dialog open={state === 'confirmed'} onOpenChange={(open) => !open && reset()}>
         <DialogContent>
-          <div className="flex flex-col items-center text-center gap-4 pt-8">
+          <DialogHeader className="text-center">
+             <DialogTitle className="text-2xl">Success!</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col items-center text-center gap-4">
             <CheckCircle className="h-16 w-16 text-green-500 animate-in fade-in zoom-in-50 duration-500"/>
-            <h2 className="text-2xl font-semibold">Success!</h2>
             <p className="text-muted-foreground">
             You have successfully clocked {clockingType} at {confirmedTime}.
             </p>
