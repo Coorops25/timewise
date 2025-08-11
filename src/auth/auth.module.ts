@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { UserModule } from '../users/user.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { LocalStrategy } from './strategies/local.strategy';
         signOptions: { expiresIn: '1d' },
       }),
     }),
+    UserModule
   ],
   providers: [AuthService, JwtStrategy, LocalStrategy],
   controllers: [AuthController],
